@@ -8,6 +8,10 @@
 </div>
 
 <div>
+    <div class="cart" onclick="showCart()" title="View Cart">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="cart-items">{{cartItemCount}}</span>
+    </div>
     Welcome <b>{{username}}</b> |
     <a href="#" onclick="userService.logout();return false;">logout</a>
 </div>

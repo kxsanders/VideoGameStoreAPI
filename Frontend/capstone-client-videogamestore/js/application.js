@@ -1,11 +1,28 @@
 
 function showLoginForm()
 {
-    templateBuilder.build('login-form', {}, 'login');
+    templateBuilder.build('login-form', {}, 'login', () => {
+        // This callback runs AFTER the HTML is inserted into the page
+        const modalElement = document.getElementById('login-form');
+        if (modalElement) {
+            // Create a new Bootstrap modal instance and show it
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
+    });
 }
 
 function hideModalForm()
 {
+    const modalElement = document.getElementById('login-form');
+    if (modalElement) {
+        // Get the existing modal instance
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) {
+            // Hide it properly
+            modal.hide();
+        }
+    }
     templateBuilder.clear('login');
 }
 

@@ -50,14 +50,29 @@ header .cart
     padding-left: 10px;
     padding-right: 10px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #ffffff;
+}
+
+header .cart:hover {
+    color: #00ff41;
 }
 
 header .cart #cart-items
 {
     font-size: .7em;
-    height: 50%;
-    align-items: start;
-    padding-left: 5px;
+    background-color: #00ff41;
+    color: #000;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    min-width: 20px;
 }
 
 main

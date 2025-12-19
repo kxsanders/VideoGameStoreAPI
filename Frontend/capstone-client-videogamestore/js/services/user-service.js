@@ -75,7 +75,8 @@ class UserService {
         const user = {
                 username: this.getUserName(),
                 loggedin: this.isLoggedIn(),
-                loggedout: !this.isLoggedIn()
+                loggedout: !this.isLoggedIn(),
+                cartItemCount: cartService ? cartService.getCartItemCount() : 0
             };
 
         templateBuilder.build('header', user, 'header-user');
