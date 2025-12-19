@@ -66,13 +66,19 @@ header .cart #cart-items
     background-color: #00ff41;
     color: #000;
     border-radius: 50%;
-    width: 20px;
+    min-width: 20px;
     height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2px;
-    min-width: 20px;
+    padding: 2px 4px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+/* Ensure cart icon is always visible */
+header .cart i {
+    display: inline-block;
 }
 
 main
@@ -192,22 +198,13 @@ main > .content-form .cart-item
     display: none !important;
 }
 
-.modal
-{
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    background-color: #777777aa;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1000;
-    padding: 30px;
+/* Ensure Bootstrap modals work correctly - remove custom modal styles that conflict */
+.modal.fade {
+    display: none;
 }
 
-.modal-dialog
-{
-    width: 50vw;
+.modal.fade.show {
+    display: block;
 }
 
 #errors

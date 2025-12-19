@@ -10,9 +10,9 @@ class ShoppingCartService {
     addToCart(productId)
     {
         const url = `${config.baseUrl}/cart/products/${productId}`;
-        // const headers = userService.getHeaders();
+        const headers = userService.getHeaders();
 
-        axios.post(url, {})// ,{headers})
+        axios.post(url, {}, {headers})
             .then(response => {
                 this.setCart(response.data)
 
@@ -206,7 +206,12 @@ class ShoppingCartService {
 document.addEventListener('DOMContentLoaded', () => {
     cartService = new ShoppingCartService();
 
-    if(userService.isLoggedIn())
+    // Refresh header after cartService is initialized to show cart icon
+    if(userService) {
+        userService.setHeaderLogin();
+    }
+
+    if(userService && userService.isLoggedIn())
     {
         cartService.loadCart();
     }

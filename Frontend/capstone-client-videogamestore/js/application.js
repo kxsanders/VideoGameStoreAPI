@@ -42,7 +42,14 @@ function showImageDetailForm(product, imageUrl)
         imageUrl: imageUrl
     };
 
-    templateBuilder.build('image-detail',imageDetail,'login')
+    templateBuilder.build('image-detail',imageDetail,'login', () => {
+        // Initialize and show Bootstrap modal after template is built
+        const modalElement = document.getElementById('image-detail-form');
+        if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
+    });
 }
 
 function loadHome()

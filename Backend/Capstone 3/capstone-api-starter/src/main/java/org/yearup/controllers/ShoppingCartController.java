@@ -62,16 +62,45 @@ public class ShoppingCartController
     // add a POST method to add a product to the cart - the url should be
     // https://localhost:8080/cart/products/15 (15 is the productId to be added
     @PostMapping("/products/{productId}")
-    public void addProductToCart(@PathVariable int productId, Principal principal){
+    public ShoppingCart addProductToCart(@PathVariable int productId, Principal principal){
         try {
             String userName = principal.getName();
             User user = userDao.getByUserName(userName);
+
+            if (user == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+            }
+
             int userId = user.getId();
 
+            // Validate product exists
+            var product = productDao.getById(productId);
+            if (product == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+            }
+
             shoppingCartDao.addProduct(userId, productId);
+            
+            // Return the updated cart
+            return shoppingCartDao.getByUserId(userId);
         }
-        catch (Exception exception) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Oops... our bad.");
+        catch (ResponseStatusException e) {
+            // Re-throw ResponseStatusException as-is
+            throw e;
+        }
+        catch (RuntimeException e) {
+            // Log the runtime exception
+            System.err.println("RuntimeException in addProductToCart: " + e.getMessage());
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Failed to add product to cart: " + e.getMessage());
+        }
+        catch (Exception e) {
+            // Catch any other exceptions
+            System.err.println("Exception in addProductToCart: " + e.getMessage());
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
+                    "Oops... our bad. " + e.getMessage());
         }
     }
 
@@ -102,7 +131,7 @@ public class ShoppingCartController
     // add a DELETE method to clear all products from the current users cart
     // https://localhost:8080/cart
     @DeleteMapping
-    public void clearCart(Principal principal)
+    public ShoppingCart clearCart(Principal principal)
     {
         try
         {
@@ -111,6 +140,9 @@ public class ShoppingCartController
             int userId = user.getId();
 
             shoppingCartDao.clearCart(userId);
+            
+            // Return the updated (empty) cart
+            return shoppingCartDao.getByUserId(userId);
         }
         catch(Exception e)
         {

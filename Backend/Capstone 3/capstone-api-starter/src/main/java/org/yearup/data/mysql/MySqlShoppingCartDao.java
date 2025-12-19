@@ -69,6 +69,9 @@ public class MySqlShoppingCartDao extends MySqlDaoBase implements ShoppingCartDa
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
+        catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override

@@ -1,11 +1,9 @@
-<div id="image-detail-form" class="modal" onclick="hideModalForm()">
-  <div class="modal-dialog" role="document">
+<div id="image-detail-form" class="modal fade" tabindex="-1" aria-labelledby="image-header" aria-hidden="true" onclick="hideModalForm()">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="image-header">{{name}}</h5>
-        <button type="button" class="btn-close" onclick="hideModalForm()" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true"></span>
-        </button>
+        <button type="button" class="btn-close" onclick="hideModalForm()" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div>
@@ -14,5 +12,4 @@
       </div>
     </div>
   </div>
-
 </div>
