@@ -173,13 +173,25 @@ class ShoppingCartService {
              })
     }
 
+    getCartItemCount()
+    {
+        return this.cart.items ? this.cart.items.length : 0;
+    }
+
     updateCartDisplay()
     {
         try {
             const itemCount = this.cart.items.length;
             const cartControl = document.getElementById("cart-items")
 
-            cartControl.innerText = itemCount;
+            if (cartControl) {
+                cartControl.innerText = itemCount;
+            }
+            
+            // Also update the header to refresh the cart icon count
+            if (userService) {
+                userService.setHeaderLogin();
+            }
         }
         catch (e) {
 
